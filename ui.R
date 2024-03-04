@@ -2,39 +2,40 @@
 
 ## OVERVIEW TAB INFO
 
-overview_tab <- tabPanel("Overview Tab Title",
-   h1("Some title"),
+overview_tab <- tabPanel("Obesity in the United States",
+   h1("Observing Obesity and Poverty Within the United States"),
    p("some explanation")
 )
 
 ## VIZ 1 TAB INFO
 #Brooke
-# viz_1_sidebar <- sidebarPanel(
-#   h2("Options for graph"),
-#   
-#   #Dynamic inputs for selecting State
-#   selectInput$inputId = (inputId = "state_name", 
-#                          label = "Enter in the State you're interested in",
-#                          #default selection is Alabama 
-#                          selected = "Alabama",
-#                          multiple = TRUE),
-# 
-#   #dynamic outputs for state_name
-#   textOuput(outputId = "obesity_poverty_plot")
-# )
-# 
-# viz_1_main_panel <- mainPanel(
-#   h2("Vizualization 1 Title"),
-#   # plotlyOutput(outputId = "your_viz_1_output_id")
-# )
-# 
-# viz_1_tab <- tabPanel("Viz 1 tab title",
-#   sidebarLayout(
-#     viz_1_sidebar,
-#     viz_1_main_panel
-#   )
-# )
-
+ viz_1_sidebar <- sidebarPanel(
+   h2("State Selector"),
+   
+   #Dynamic inputs for selecting State
+   selectInput(inputId = "state_name", 
+               label = "Enter the State you're interested in",
+               choices = unique(combined_df$State), 
+               selected = "Alabama", #automatic choice
+               multiple = TRUE),
+ 
+   #dynamic outputs for state_name
+  # textOuput(outputId = "obesity_poverty_plot")
+ )
+ 
+ viz_1_main_panel <- mainPanel(
+   h2("Correlation between Poverty and Obesity"),
+    plotlyOutput(outputId = "obesity_poverty_plot")
+)
+ 
+ viz_1_tab <- tabPanel("Obesity and Poverty Per State",
+   sidebarLayout(
+     viz_1_sidebar,
+     viz_1_main_panel
+   )
+ )
+ 
+ 
 ## VIZ 2 TAB INFO
 #Grace 
 viz_2_sidebar <- sidebarPanel(
@@ -54,7 +55,7 @@ viz_2_main_panel <- mainPanel(
   
 )
 
-viz_2_tab <- tabPanel("Viz 2 tab title",
+viz_2_tab <- tabPanel("Over the Years",
   sidebarLayout(
     viz_2_sidebar,
     viz_2_main_panel
@@ -91,8 +92,8 @@ viz_2_tab <- tabPanel("Viz 2 tab title",
 
 ui <- navbarPage("Example Project Title",
   overview_tab,
-  # viz_1_tab,
-  viz_2_tab,
+   viz_1_tab,
+   viz_2_tab,
   # viz_3_tab,
   # conclusion_tab
 )

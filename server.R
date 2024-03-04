@@ -2,8 +2,9 @@ library(ggplot2)
 library(plotly)
 
 #add newly created csv file here  Unified_dataset.csv
-combined_df <- read.csv("/final-project-brookedietmeier/Unified_dataset.csv")
-#unified or combined
+combined_df <- read.csv("Unified_dataset.csv")
+
+
 server <- function(input, output){
   #user inputing State they're interested in seeing --> output
   output$obesity_poverty_plot <- renderPlotly({
@@ -11,44 +12,25 @@ server <- function(input, output){
     selected_df <- combined_df %>% filter(State %in% input$state_name)
     
     obesity_poverty_plot <- ggplot(selected_df) +
-      geom_col(aes(x = Obesity_Prevelance,
-                   # Reorder values
-                   y = Poverty_Rate)) +
-                   labs(title = "Correlation between Poverty and Obesity", x = "Obesity Prevelance Percentage", y = "Poverty Rate", color = "Year")
-    
-    return(ggplotly(obesity_poverty_plot))
+          geom_col(aes(x = Obesity_Prevelance,
+                       # Reorder values
+                       y = Poverty_Rate)) +
+                       labs(title = "Correlation between Poverty and Obesity", x = "Obesity Prevelance Percentage", y = "Poverty Rate", color = "YearStart")
+        
+        ggplotly(obesity_poverty_plot)
 })
   
 }
 
-
-#output$obesity_poverty_plot <- renderPlotly({ 
-# combined_df <- unified
-#  group_by(State) %>% 
-# summarize(correlation between states)
-#if(input$link_between_obesity_physical_activit) {
-#  my_plot <- ggplot(combined)+
-#            geom_point(mapping = aes(x = `Obesity Prevelance`, 
-#                                     y = `Poverty Rate`,
-#                                      fill = state))
-#} else {
-# my_plot <- ggplot(combined)+
-#            geom_point(mapping = aes(x = `Obesity Prevelance`, 
-#                                     y = Poverty_Rate))
-
-#}
-# return(ggplotly(my_plot))
-#})
-
-
 # server logic 
+#SHOULD NOT BE DEFINING SERVER TWICE?
 server <- function(input, output, session) {
-  selected_data <- reactive({
-    filter(combined_data, Year == input$selected_date)
+  selected_df <- reactive({
+    filter(combined_df, Year == input$selected_date)
   })
   
   total_obesity_rate <- reactive({
-    sum(selected_data()$ObesityRate)
+    sum(selected_df$ObesityRate)
   })
   
   change_in_obesity <- reactive({
@@ -74,8 +56,8 @@ server <- function(input, output, session) {
     paste("Date:", input$selected_date)
   })
   
-  output$obesity_plot < renderPlot({
-    ggplot(combined_df, aes(x = State, y = ObesityRate, fill = Year)) +
+ output$obesity_plot < renderPlot({
+    ggplot(combined_df, aes(x = State, y = Obesity_Prevelance, fill = YearStart)) +
       geom_bar(stat = "identity", position = "dodge") +
       labs(title = "Obesity Rates per State from 2020 + 2022",
            x = "State", y = "Obesity Rate") +
