@@ -78,9 +78,9 @@ server <- function(input, output, session) {
           <p>Our critical research questions aimed to identify ... </p>
           <h2>Specific Takeaways</h2>
           <ul>
-            <li>West Virginia has the highest obesity rate (<b>40.3% of their population classified as Obese</b>)</li>
-            <li>New Mexico has the highest poverty rate (<b>18.3% of their population classified as under the poverty level</b>)</li>
-            <li>Mississipi has the highest level of people who perform little to no physical activity (<b>31.2% of their population</b>)</li>
+            <li>West Virginia has the highest obesity rate (<b>40.3% of their population classified as Obese</b>) and 15.3% of their population lives below the poverty line</li>
+            <li>New Mexico has the highest poverty rate (<b>18.3% of their population classified as under the poverty level</b>) and 25.7% of their population is considered Obese</li>
+            <li>Mississipi has the highest level of people who perform little to no physical activity (<b>31.2% of their population</b>) and 34.8% of their population is considered obese (<b>17.8% of their population lives below the poverty line</b>)</li>
             <li>The State that had the greatest change in obesity levels from 2020 to 2022 is (<b></b>).</li>
           </ul>
           <p>Insights from our research into the affect that Poverty has on Obesity is that.. .</p>
