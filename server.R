@@ -13,12 +13,11 @@ server <- function(input, output){
     selected_df <- combined_df %>% filter(State %in% input$state_name)
     
     obesity_poverty_plot <- ggplot(selected_df) +
-          geom_col(aes(x = Obesity_Prevelance,
-                       # Reorder values
+          geom_point(aes(x = Obesity_Prevelance,
                        y = Poverty_Rate)) +
                        labs(title = "Correlation between Poverty and Obesity", x = "Obesity Prevelance %", y = "Poverty Rate (%)", color = "YearStart")
         
-        ggplotly(obesity_poverty_plot)
+        return(ggplotly(obesity_poverty_plot))
 })
   
 }
@@ -26,12 +25,12 @@ server <- function(input, output){
 # server logic 
 #SHOULD NOT BE DEFINING SERVER TWICE?
 server <- function(input, output, session) {
-  selected_df <- reactive({
+  year_selected_df <- reactive({
     filter(combined_df, Year == input$selected_date)
   })
   
   total_obesity_rate <- reactive({
-    sum(selected_df$ObesityRate)
+    sum(year_selected_df$ObesityRate)
   })
   
   change_in_obesity <- reactive({

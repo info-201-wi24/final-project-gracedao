@@ -16,32 +16,32 @@ overview_tab <- tabPanel("Obesity in the United States",
                          p("Our analysis takes data from the Nutrition, Physical Activity, and Obesity Behavioral Risk Factor Surveillance System provided by the U.S. Department of Health & Human Services and the National Obesity by State dataset published by the CDC. While these datasets offer valuable insights, it is crucial to acknowledge potential ethical questions and limitations. Issues such as data privacy, biases inherent in survey data collection, and representativeness of the sample are a few issues to think about.")
 )
 
-
 ## VIZ 1 TAB INFO
 #Brooke
+viz_1_main_panel <- mainPanel(
+  h2("Correlation between Poverty and Obesity"),
+  plotlyOutput(outputId = "obesity_poverty_plot"),
+)
+
  viz_1_sidebar <- sidebarPanel(
    h2("State Selector"),
    
    #Dynamic inputs for selecting State
    selectInput(inputId = "state_name", 
                label = "Enter the State you're interested in",
-               choices = unique(combined_df$State), 
+               choices = selected_df$State, 
                selected = "Alabama", #automatic choice
                multiple = TRUE),
  
    #dynamic outputs for state_name
-  # textOuput(outputId = "obesity_poverty_plot")
+   #textOuput(outputId = "You have selected: ")
  )
  
- viz_1_main_panel <- mainPanel(
-   h2("Correlation between Poverty and Obesity"),
-    plotlyOutput(outputId = "obesity_poverty_plot")
-)
  
  viz_1_tab <- tabPanel("Obesity and Poverty Per State",
    sidebarLayout(
-     viz_1_sidebar,
-     viz_1_main_panel
+     viz_1_main_panel,
+     viz_1_sidebar
    )
  )
  
@@ -91,12 +91,12 @@ viz_2_tab <- tabPanel("Over the Years",
 #   )
 # )
 
-## CONCLUSIONS TAB INFO
 
-# conclusion_tab <- tabPanel("Conclusion Tab Title",
-#  h1("Some title"),
-#  p("some conclusions")
-# )
+## CONCLUSIONS TAB INFO
+ conclusion_tab <- tabPanel("Conclusion",
+  h1("Conclusion for Obesity prevelance in the United States from 2020 to 2022"),
+  p("some conclusions")
+ )
 
 
 
