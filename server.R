@@ -39,3 +39,46 @@ server <- function(input, output){
 #}
 # return(ggplotly(my_plot))
 #})
+
+
+# server logic 
+server <- function(input, output, session) {
+  selected_data <- reactive({
+    filter(combined_data, Year == input$selected_date)
+  })
+  
+  total_obesity_rate <- reactive({
+    sum(selected_data()$ObesityRate)
+  })
+  
+  change_in_obesity <- reactive({
+    previous_year_data <- filter(combined_df, Year == input$selected_date - 1)
+    
+    if (nrow(previous_year_data) == 0) {
+      return ("No data for the previous year")
+    }
+    
+    previous_year_obesity_rate <- sum(previous_year_data$ObesityRate)
+    percent_change <- ((total_obesity_rate() - previous_year_obesity_rate) / previous_year_obesity_rate) * 100
+    
+    if (percent_change > 0) {
+      return(paste0("Increase of ", round(percent_change, 2), "% from the previous year"))
+    } else if (percent_change < 0) {
+      return(paste0("Decrease of ", round(abs(percent_change), 2), "% from the previous year"))
+    } else {
+      return("No change from the previous year")
+    }
+  })
+  
+  output$selected_date_output <- renderText({
+    paste("Date:", input$selected_date)
+  })
+  
+  output$obesity_plot < renderPlot({
+    ggplot(combined_df, aes(x = State, y = ObesityRate, fill = Year)) +
+      geom_bar(stat = "identity", position = "dodge") +
+      labs(title = "Obesity Rates per State from 2020 + 2022",
+           x = "State", y = "Obesity Rate") +
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  })
+}
