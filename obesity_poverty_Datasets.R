@@ -1,5 +1,6 @@
 library(dplyr)
 library(stringr)
+library(readr)
 
 # Loads in your datasets
 obesity_df <- read.csv("2022-white.csv") 
@@ -58,8 +59,30 @@ combined_df$Question <- NULL
 
 #make obesity_prevelance a number instead of characters: 
 
-#find the correlation rate between poverty and obesity 
+combined_df <- combined_df %>%
+  mutate(Obesity_Prevelance = parse_number(Obesity_Prevelance))
 
+#Key Takeaways
+highest_obesity <- combined_df %>%
+  group_by(State) %>%
+  summarise(AverageObesityRate = mean(Obesity_Prevelance, na.rm = TRUE)) %>%
+  arrange(desc(AverageObesityRate)) %>%
+  slice(1)
+print(highest_obesity)
+
+highest_poverty <- combined_df %>%
+  group_by(State) %>%
+  summarise(AveragePovertyRate = mean(Poverty_Rate, na.rm = TRUE)) %>%
+  arrange(desc(AveragePovertyRate)) %>%
+  slice(1)
+print(highest_poverty)
+
+highest_no_physical <- combined_df %>%
+  group_by(State) %>%
+  summarise(AverageActivityRate = mean(Average_No_Physical_Activity, na.rm = TRUE)) %>%
+  arrange(desc(AverageActivityRate)) %>%
+  slice(1)
+print(highest_no_physical)
 
 #save unified dataset to a new file 
 write.csv(combined_df, "Unified_dataset.csv", row.names = FALSE)

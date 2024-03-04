@@ -2,7 +2,7 @@
 
 ## OVERVIEW TAB INFO
 
-overview_tab <- tabPanel("Obesity in the United States",
+overview_tab <- tabPanel("Introduction",
                          h1("Exploring the Dynamics of Poverty and Obesity in the United States", align = "center"),
                          h3("Project Overview"),
                          p("This project investigates the relationship between poverty/wealth and obesity in the United States. Through analysis of combined data from the Nutrition, Physical Activity, and Obesity Behavioral Risk Factor Surveillance System provided by the U.S. Department of Health & Human Services and National Obesity by State published by the CDC, we aim to shed light on several critical questions surrounding this topic."),
@@ -18,11 +18,6 @@ overview_tab <- tabPanel("Obesity in the United States",
 
 ## VIZ 1 TAB INFO
 #Brooke
-viz_1_main_panel <- mainPanel(
-  h2("Correlation between Poverty and Obesity"),
-  plotlyOutput(outputId = "obesity_poverty_plot"),
-)
-
  viz_1_sidebar <- sidebarPanel(
    h2("State Selector"),
    
@@ -36,12 +31,15 @@ viz_1_main_panel <- mainPanel(
    #dynamic outputs for state_name
    #textOuput(outputId = "You have selected: ")
  )
- 
+ viz_1_main_panel <- mainPanel(
+   h2("Correlation between Poverty and Obesity"),
+   plotlyOutput(outputId = "obesity_poverty_plot"),
+ )
  
  viz_1_tab <- tabPanel("Obesity and Poverty Per State",
    sidebarLayout(
-     viz_1_main_panel,
-     viz_1_sidebar
+     viz_1_sidebar,
+     viz_1_main_panel
    )
  )
  
@@ -93,14 +91,20 @@ viz_2_tab <- tabPanel("Over the Years",
 
 
 ## CONCLUSIONS TAB INFO
- conclusion_tab <- tabPanel("Conclusion",
-  h1("Conclusion for Obesity prevelance in the United States from 2020 to 2022"),
-  p("some conclusions")
- )
+conclusion_panel <- tabPanel(
+  "Takeaways",
+   htmlOutput("Takeaways")
+)
+
+ my_theme <- bs_theme(bg = "#0b3d91",
+                      fg = "white", 
+                      primary = "#FCC780")
+ my_theme <- bs_theme_update(my_theme, bootswatch = "flatly")
 
 
-
-ui <- navbarPage("Example Project Title",
+ui <- navbarPage(
+  theme = my_theme,
+  "Example Project Title",
   overview_tab,
    viz_1_tab,
    viz_2_tab,
