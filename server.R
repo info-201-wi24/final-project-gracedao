@@ -2,7 +2,7 @@ library(ggplot2)
 library(plotly)
 
 #add newly created csv file here  Unified_dataset.csv
-combined_df <- read.csv(~/final-project-brookedietmeier/Unified_dataset.csv)
+combined_df <- read.csv("/final-project-brookedietmeier/Unified_dataset.csv")
 #unified or combined
 server <- function(input, output){
   #user inputing State they're interested in seeing --> output

@@ -41,9 +41,9 @@ viz_2_sidebar <- sidebarPanel(
   h2("Options for graph"),
   dateInput(inputId = "selected_date",
             label = "Select a Date",
-            min = 2020, 
-            max = 2022,
-            value = 2022)
+            min = as.Date("2020-01-01"),  # Set min date to January 1, 2020
+            max = as.Date("2022-12-31"),  # Set max date to December 31, 2022
+            value = as.Date("2022-01-01"))
 )
 
 viz_2_main_panel <- mainPanel(
@@ -94,5 +94,5 @@ ui <- navbarPage("Example Project Title",
   # viz_1_tab,
   viz_2_tab,
   # viz_3_tab,
-  conclusion_tab
+  # conclusion_tab
 )
