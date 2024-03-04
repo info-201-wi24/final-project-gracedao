@@ -10,12 +10,13 @@ server <- function(input, output){
   #user inputing State they're interested in seeing --> output
   output$obesity_poverty_plot <- renderPlotly({
     
-    selected_df <- combined_df %>% filter(State %in% input$state_name)
+    selected_df <- combined_df %>% 
+                   filter(State %in% input$state_name)
     
     obesity_poverty_plot <- ggplot(selected_df) +
-          geom_point(aes(x = Obesity_Prevelance,
-                       y = Poverty_Rate)) +
-                       labs(title = "Correlation between Poverty and Obesity", x = "Obesity Prevelance %", y = "Poverty Rate (%)", color = "YearStart")
+                            geom_point(aes(x = Obesity_Prevelance,
+                                           y = Poverty_Rate)) +
+                                           labs(title = "Correlation between Poverty and Obesity", x = "Obesity Prevelance %", y = "Poverty Rate (%)", color = "YearStart")
         
         return(ggplotly(obesity_poverty_plot))
 })
