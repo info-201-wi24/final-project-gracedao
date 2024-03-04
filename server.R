@@ -1,5 +1,6 @@
 library(ggplot2)
 library(plotly)
+library(shiny)
 
 #add newly created csv file here  Unified_dataset.csv
 combined_df <- read.csv("Unified_dataset.csv")
@@ -15,7 +16,7 @@ server <- function(input, output){
           geom_col(aes(x = Obesity_Prevelance,
                        # Reorder values
                        y = Poverty_Rate)) +
-                       labs(title = "Correlation between Poverty and Obesity", x = "Obesity Prevelance Percentage", y = "Poverty Rate", color = "YearStart")
+                       labs(title = "Correlation between Poverty and Obesity", x = "Obesity Prevelance %", y = "Poverty Rate (%)", color = "YearStart")
         
         ggplotly(obesity_poverty_plot)
 })
