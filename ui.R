@@ -1,6 +1,6 @@
 library(plotly)
 library(shiny)
-library(bslib)
+library(tidyverse)
 
 ## OVERVIEW TAB INFO
 combined_df <- read.csv("Unified_dataset.csv")
@@ -102,9 +102,24 @@ viz_2_tab <- tabPanel("Over the Years",
 
 
 ## CONCLUSIONS TAB INFO
-conclusion_panel <- tabPanel(
-  "Takeaways",
-   htmlOutput("Takeaways")
+conclusion_tab <- tabPanel("Takeaways",
+                  h2("Key Findings"),
+                  h3("We initially sought to answer the following questions:"),
+                  p("What is the correlation between poverty and obesity in the United States?"),
+                  p("What kind of impact did the pandemic have on the relationship between obesity and poverty?"),
+                  p("Are there casual pathways and barreirs to physical activity that link poverty to reduced physical activity?"),
+                  
+                  h3("Our critical research questions aimed to identify:"),
+                  p("some text"),
+                  
+                  
+                  h3("Key Questions:"),
+                  p("Correlation Between Poverty and Obesity: We seek to understand the strength of the correlation between poverty and obesity nationwide. Additionally, we explore how the variance in this relationship varies across different states."),
+                  p("Impact of the Pandemic: How has the relationship between poverty and obesity rates evolved from 2020 during the pandemic to 2022, after the pandemic? This inquiry delves into the potential effects of the pandemic on these societal issues."),
+                  p("Causal Pathway and Barriers to Physical Activity: Is there a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates? We will examine potential barriers to physical activity in low-income areas or states, such as lack of access to recreational spaces or job constraints."),
+                  
+                  h3("Data Sources and Ethical Considerations"),
+                  p("Our analysis takes data from the Nutrition, Physical Activity, and Obesity Behavioral Risk Factor Surveillance System provided by the U.S. Department of Health & Human Services and the National Obesity by State dataset published by the CDC. While these datasets offer valuable insights, it is crucial to acknowledge potential ethical questions and limitations. Issues such as data privacy, biases inherent in survey data collection, and representativeness of the sample are a few issues to think about.")
 )
 
  my_theme <- bs_theme(bg = "#0b3d91",
@@ -115,10 +130,10 @@ conclusion_panel <- tabPanel(
 
 ui <- navbarPage(
   theme = my_theme,
-  "Example Project Title",
+  "Obesity in The United States",
   overview_tab,
    viz_1_tab,
    viz_2_tab,
   # viz_3_tab,
-  # conclusion_tab
+   conclusion_tab
 )
