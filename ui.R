@@ -1,6 +1,15 @@
-
+library(plotly)
+library(shiny)
+library(bslib)
 
 ## OVERVIEW TAB INFO
+combined_df <- read.csv("Unified_dataset.csv")
+# Extract unique state names from the 'State' column
+state_name <- unique(combined_df$State)
+
+# Filter the data frame based on the predefined state names
+selected_df <- combined_df %>% 
+  filter(State %in% state_name)
 
 overview_tab <- tabPanel("Introduction",
                          h1("Exploring the Dynamics of Poverty and Obesity in the United States", align = "center"),
@@ -18,6 +27,7 @@ overview_tab <- tabPanel("Introduction",
 
 ## VIZ 1 TAB INFO
 #Brooke
+
  viz_1_sidebar <- sidebarPanel(
    h2("State Selector"),
    
@@ -29,7 +39,7 @@ overview_tab <- tabPanel("Introduction",
                multiple = TRUE),
  
    #dynamic outputs for state_name
-   #textOuput(outputId = "You have selected: ")
+   # textOuput(outputId = "You have selected: ")
  )
  viz_1_main_panel <- mainPanel(
    h2("Correlation between Poverty and Obesity"),
@@ -46,30 +56,30 @@ overview_tab <- tabPanel("Introduction",
  
 ## VIZ 2 TAB INFO
 #Grace 
-# viz_2_sidebar <- sidebarPanel(
-#   h2("Options for graph"),
-#   sliderInput(inputId = "selected_year_range",
-#               label = "Select a Year Range",
-#               min = 2018,
-#               max = 2022,
-#               value = c(2020, 2022),
-#               step = 1)
-# )
-# 
-# viz_2_main_panel <- mainPanel(
-#   h2("Relationship between Poverty and Obesity Rates"),
-#   h1("Date: "),
-#   textOutput("selected_date_output"),
-#   plotOutput(outputId = "obesity_poverty_plot")
-#   
-# )
-# 
-# viz_2_tab <- tabPanel("Over the Years",
-#   sidebarLayout(
-#     viz_2_sidebar,
-#     viz_2_main_panel
-#   )
-# )
+viz_2_sidebar <- sidebarPanel(
+  h2("Options for graph"),
+  sliderInput(inputId = "selected_year_range",
+              label = "Select a Year Range",
+              min = 2018,
+              max = 2022,
+              value = c(2018, 2022),
+              step = 1)
+)
+
+viz_2_main_panel <- mainPanel(
+  h2("Relationship between Poverty and Obesity Rates"),
+  h1("Date: "),
+  textOutput("selected_date_output"),
+  plotOutput(outputId = "obesity_poverty_plot")
+
+)
+
+viz_2_tab <- tabPanel("Over the Years",
+  sidebarLayout(
+    viz_2_sidebar,
+    viz_2_main_panel
+  )
+)
 
 ## VIZ 3 TAB INFO
 #Everlyn 
@@ -108,7 +118,7 @@ ui <- navbarPage(
   "Example Project Title",
   overview_tab,
    viz_1_tab,
-   # viz_2_tab,
+   viz_2_tab,
   # viz_3_tab,
   # conclusion_tab
 )
