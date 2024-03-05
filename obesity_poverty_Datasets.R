@@ -9,7 +9,7 @@ nutrition_df <- read.csv("Nutrition__Physical_Activity__and_Obesity_-_Behavioral
 
 #nutrition 
 nutrition_df <- nutrition_df %>% 
-  filter(YearStart == 2020 | YearStart == 2021 | YearStart == 2022) %>%
+  filter(YearStart >= 2018 & YearStart <= 2022) %>%
   select(YearStart, LocationDesc, Question, Data_Value) 
 
 nutrition_df <- nutrition_df %>%

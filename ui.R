@@ -46,29 +46,30 @@ overview_tab <- tabPanel("Introduction",
  
 ## VIZ 2 TAB INFO
 #Grace 
-viz_2_sidebar <- sidebarPanel(
-  h2("Options for graph"),
-  dateInput(inputId = "selected_date",
-            label = "Select a Date",
-            min = as.Date("2020-01-01"),  # Set min date to January 1, 2020
-            max = as.Date("2022-12-31"),  # Set max date to December 31, 2022
-            value = as.Date("2022-01-01"))
-)
-
-viz_2_main_panel <- mainPanel(
-  h2("Relationship between Poverty and Obesity Rates"),
-  h1("Date: "),
-  textOutput("selected_date_output"),
-  plotOutput(outputId = "obesity_poverty_plot")
-  
-)
-
-viz_2_tab <- tabPanel("Over the Years",
-  sidebarLayout(
-    viz_2_sidebar,
-    viz_2_main_panel
-  )
-)
+# viz_2_sidebar <- sidebarPanel(
+#   h2("Options for graph"),
+#   sliderInput(inputId = "selected_year_range",
+#               label = "Select a Year Range",
+#               min = 2018,
+#               max = 2022,
+#               value = c(2020, 2022),
+#               step = 1)
+# )
+# 
+# viz_2_main_panel <- mainPanel(
+#   h2("Relationship between Poverty and Obesity Rates"),
+#   h1("Date: "),
+#   textOutput("selected_date_output"),
+#   plotOutput(outputId = "obesity_poverty_plot")
+#   
+# )
+# 
+# viz_2_tab <- tabPanel("Over the Years",
+#   sidebarLayout(
+#     viz_2_sidebar,
+#     viz_2_main_panel
+#   )
+# )
 
 ## VIZ 3 TAB INFO
 #Everlyn 
@@ -107,7 +108,7 @@ ui <- navbarPage(
   "Example Project Title",
   overview_tab,
    viz_1_tab,
-   viz_2_tab,
+   # viz_2_tab,
   # viz_3_tab,
   # conclusion_tab
 )

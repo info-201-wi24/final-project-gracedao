@@ -26,45 +26,37 @@ server <- function(input, output){
 
 # server logic 
 #SHOULD NOT BE DEFINING SERVER TWICE?
-server <- function(input, output, session) {
-  year_selected_df <- reactive({
-    filter(combined_df, Year == input$selected_date)
-  })
-  
-  total_obesity_rate <- reactive({
-    sum(year_selected_df$ObesityRate)
-  })
-  
-  change_in_obesity <- reactive({
-    previous_year_data <- filter(combined_df, Year == input$selected_date - 1)
-    
-    if (nrow(previous_year_data) == 0) {
-      return ("No data for the previous year")
-    }
-    
-    previous_year_obesity_rate <- sum(previous_year_data$ObesityRate)
-    percent_change <- ((total_obesity_rate() - previous_year_obesity_rate) / previous_year_obesity_rate) * 100
-    
-    if (percent_change > 0) {
-      return(paste0("Increase of ", round(percent_change, 2), "% from the previous year"))
-    } else if (percent_change < 0) {
-      return(paste0("Decrease of ", round(abs(percent_change), 2), "% from the previous year"))
-    } else {
-      return("No change from the previous year")
-    }
-  })
-  
-  output$selected_date_output <- renderText({
-    paste("Date:", input$selected_date)
-  })
-  
- output$obesity_plot < renderPlot({
-    ggplot(combined_df, aes(x = State, y = Obesity_Prevelance, fill = YearStart)) +
-      geom_bar(stat = "identity", position = "dodge") +
-      labs(title = "Obesity Rates per State from 2020 + 2022",
-           x = "State", y = "Obesity Rate") +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
-  })
+# output$selected_date_output <- renderText({
+#   paste("Date Range: ", input$selected_date[1], " to ", input$selected_date[2])
+# })
+# 
+# # Render the plot based on the selected date range
+# output$obesity_plot <- renderPlot({
+#   # Filter the data frame based on the selected year range
+#   selected_df <- combined_df %>%
+#     filter(Year %in% seq(input$selected_date[1], input$selected_date[2]))
+#   
+#   # Compute the total obesity rate for the selected year range
+#   total_obesity_rate <- sum(selected_df$Obesity_Prevelance)
+#   
+#   # Compute the change in obesity rate from the previous year
+#   previous_year_data <- combined_df %>%
+#     filter(Year %in% (input$selected_date[1] - 1):(input$selected_date[2] - 1))
+#   if (nrow(previous_year_data) == 0) {
+#     percent_change <- NA
+#   } else {
+#     previous_year_obesity_rate <- sum(previous_year_data$Obesity_Prevelance)
+#     percent_change <- ((total_obesity_rate - previous_year_obesity_rate) / previous_year_obesity_rate) * 100
+#   }
+#   
+#   # Plot the data
+#   ggplot(selected_df, aes(x = State, y = Obesity_Prevelance, fill = as.factor(Year))) +
+#     geom_bar(stat = "identity", position = "dodge") +
+#     labs(title = "Obesity Rates per State from 2018 to 2022",
+#          x = "State", y = "Obesity Rate") +
+#     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+#     annotate("text", x = 1, y = 1, label = paste("Change from previous year:", ifelse(is.na(percent_change), "No data", percent_change)))
+# })
  
  ##conclusion
  output$Takeaways <- renderUI({
