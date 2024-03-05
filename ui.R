@@ -1,6 +1,7 @@
 library(plotly)
 library(shiny)
 library(tidyverse)
+library(bslib)
 
 ## OVERVIEW TAB INFO
 combined_df <- read.csv("Unified_dataset.csv")
@@ -22,24 +23,32 @@ overview_tab <- tabPanel("Introduction",
                          p("Causal Pathway and Barriers to Physical Activity: Is there a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates? We will examine potential barriers to physical activity in low-income areas or states, such as lack of access to recreational spaces or job constraints."),
                          
                          h3("Data Sources and Ethical Considerations"),
-                         p("Our analysis takes data from the Nutrition, Physical Activity, and Obesity Behavioral Risk Factor Surveillance System provided by the U.S. Department of Health & Human Services and the National Obesity by State dataset published by the CDC. While these datasets offer valuable insights, it is crucial to acknowledge potential ethical questions and limitations. Issues such as data privacy, biases inherent in survey data collection, and representativeness of the sample are a few issues to think about.")
+                         p("Our analysis takes data from the Nutrition, Physical Activity, and Obesity Behavioral Risk Factor Surveillance System provided by the U.S. Department of Health & Human Services and the National Obesity by State dataset published by the CDC. While these datasets offer valuable insights, it is crucial to acknowledge potential ethical questions and limitations. Issues such as data privacy, biases inherent in survey data collection, and representativeness of the sample are a few issues to think about."),
+          tags$image(src = "usa-obesity.jpg", height = 500, width = 500, )
 )
 
 ## VIZ 1 TAB INFO
 #Brooke
 
  viz_1_sidebar <- sidebarPanel(
-   h2("State Selector"),
+   h2("User opinion"),
    
+   #what state they think has the highest correlation
+   radioButtons(inputId = "user_opinion", 
+                label= h4("Do you think that obesity and poverty are correlated?"),
+                choices = list("Yes" = 1,
+                               "No" = 2, 
+                               "Don't know" = 3),
+                selected = 3),
+   
+   h2("State Selector"),
    #Dynamic inputs for selecting State
    selectInput(inputId = "state_name", 
                label = "Enter the State you're interested in",
                choices = selected_df$State, 
                selected = "Alabama", #automatic choice
                multiple = TRUE),
- 
-   #dynamic outputs for state_name
-   # textOuput(outputId = "You have selected: ")
+
  )
  viz_1_main_panel <- mainPanel(
    h2("Correlation between Poverty and Obesity"),
@@ -70,7 +79,7 @@ viz_2_main_panel <- mainPanel(
   h2("Relationship between Poverty and Obesity Rates"),
   h1("Date: "),
   textOutput("selected_date_output"),
-  plotOutput(outputId = "obesity_poverty_plot")
+  plotOutput(outputId = "obesity_plot")
 
 )
 
@@ -113,25 +122,29 @@ conclusion_tab <- tabPanel("Takeaways",
                   p("some text"),
                   
                   
-                  h3("Key Questions:"),
-                  p("Correlation Between Poverty and Obesity: We seek to understand the strength of the correlation between poverty and obesity nationwide. Additionally, we explore how the variance in this relationship varies across different states."),
-                  p("Impact of the Pandemic: How has the relationship between poverty and obesity rates evolved from 2020 during the pandemic to 2022, after the pandemic? This inquiry delves into the potential effects of the pandemic on these societal issues."),
-                  p("Causal Pathway and Barriers to Physical Activity: Is there a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates? We will examine potential barriers to physical activity in low-income areas or states, such as lack of access to recreational spaces or job constraints."),
+                  h2("Specific Takeaways:"),
+                  p("West Virginia has the highest obesity rate (40.3% of their population classified as Obese) and 15.3% of their population lives below the poverty line"),
+                  p("New Mexico has the highest poverty rate (18.3% of their population classified as under the poverty level) and 25.7% of their population is considered Obese"),
+                  p("Mississipi has the highest level of people who perform little to no physical activity (31.2% of their population) and 34.8% of their population is considered obese (17.8% of their population lives below the poverty line"),
+                  p("The State that had the greatest change in obesity levels from 2020 to 2022 is..."),
                   
-                  h3("Data Sources and Ethical Considerations"),
-                  p("Our analysis takes data from the Nutrition, Physical Activity, and Obesity Behavioral Risk Factor Surveillance System provided by the U.S. Department of Health & Human Services and the National Obesity by State dataset published by the CDC. While these datasets offer valuable insights, it is crucial to acknowledge potential ethical questions and limitations. Issues such as data privacy, biases inherent in survey data collection, and representativeness of the sample are a few issues to think about.")
+                  h3("Insights:"),
+                  p("Insights from our research into the affect that Poverty has on Obesity is that.. "),
+                  
+                  h2("Conclusion"),
+                  p("In conclusion, while this data provides valuable insights ..., it is important to note that it is not entirely comprehensive and may not accurately reflect the full extent of the causations of obesity in the United States. However, even with the data present here, it is easy to draw the conclusion that there is a very serious epidemic in the United States in regards to health, obesity, and poverty."),
 )
 
- my_theme <- bs_theme(bg = "#0b3d91",
+ my_theme <- bs_theme(bg = "#2f716c",
                       fg = "white", 
-                      primary = "#FCC780")
+                      primary = "#bce3e0")
  my_theme <- bs_theme_update(my_theme, bootswatch = "flatly")
 
 
 ui <- navbarPage(
   theme = my_theme,
   "Obesity in The United States",
-  overview_tab,
+   overview_tab,
    viz_1_tab,
    viz_2_tab,
   # viz_3_tab,
