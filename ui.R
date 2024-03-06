@@ -67,16 +67,16 @@ overview_tab <- tabPanel("Introduction",
 #Grace 
 viz_2_sidebar <- sidebarPanel(
   h2("Options for graph"),
-  selectInput(inputId = "selected_year_range",
+  selectInput(inputId = "selected_date",
               label = "Select a Year Range",
               choices = unique(selected_df$YearStart), 
-              selected = "2019"),
+              selected = "2018"),
 )
 
 viz_2_main_panel <- mainPanel(
   h2("Relationship between Poverty and Obesity Rates"),
   h1("Date: "),
-  textOutput("selected_date_output"),
+  # textOutput("selected_date_output"),
   plotOutput(outputId = "obesity_plot")
 
 )
