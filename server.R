@@ -43,16 +43,15 @@ server <- function(input, output) {
   })
 
 # Render the plot based on the selected date range
-  output$obesity_plot <- renderPlot({
+  output$obesity_year_plot <- renderPlot({
     combined_df <- combined_df[complete.cases(combined_df$Obesity_Prevelance), ]
     selected_date_output <- input$selected_date[1]
     
-    # if (!is.null(input$selected_date) && input$selected_date != "") {
-    #   selected_df <- filter(combined_df,combined_df$YearStart == input$selected_date)
-    # } else {
-    #   selected_df <- filter(combined_df, combined_df$YearStart == 2018)
-    # }
     selected_df <- filter(combined_df, combined_df$YearStart == input$selected_date)
+    
+    if (nrow(selected_df) == 0) {
+      return(NULL)  # Return NULL if no data is found
+    }
   
     # Compute the total obesity rate for the selected year range
     avg_obesity_rate <- mean(selected_df$Obesity_Prevelance, na.rm = TRUE)
@@ -66,7 +65,6 @@ server <- function(input, output) {
     }
     
     previous_year_df <- filter(combined_df, combined_df$YearStart == previous_year)
-    previous_year_obesity_rate <- mean(previous_year_df$Obesity_Prevelance)
     avg_previous_year_obesity_rate <- mean(previous_year_df$Obesity_Prevelance, na.rm = TRUE)
     
     plot_df <- data.frame(
@@ -78,7 +76,7 @@ server <- function(input, output) {
     obesity_year_plot <- ggplot(plot_df, aes(x = factor(Year), y = Average_Obesity_Rate, fill = factor(Year))) +
       geom_bar(stat = "identity", position = "dodge") +
       labs(title = "Comparison of Average Obesity Rate",
-           x = "Year", y = "Average Obesity Rate") +
+           x = "Year", y = "Average Obesity Rate (%)") +
       theme_minimal()
       return((ggplotly(obesity_year_plot)))
   })
