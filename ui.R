@@ -24,7 +24,7 @@ overview_tab <- tabPanel("Introduction",
                          
                          h3("Data Sources and Ethical Considerations"),
                          p("Our analysis takes data from the Nutrition, Physical Activity, and Obesity Behavioral Risk Factor Surveillance System provided by the U.S. Department of Health & Human Services and the National Obesity by State dataset published by the CDC. While these datasets offer valuable insights, it is crucial to acknowledge potential ethical questions and limitations. Issues such as data privacy, biases inherent in survey data collection, and representativeness of the sample are a few issues to think about."),
-          tags$image(src = "usa-obesity.jpg", height = 500, width = 500, )
+          tags$img(src = "https://landgeistdotcom.files.wordpress.com/2021/04/usa-obesity.png", height = 600, width = 800)
 )
 
 ## VIZ 1 TAB INFO
@@ -67,12 +67,10 @@ overview_tab <- tabPanel("Introduction",
 #Grace 
 viz_2_sidebar <- sidebarPanel(
   h2("Options for graph"),
-  sliderInput(inputId = "selected_year_range",
+  selectInput(inputId = "selected_year_range",
               label = "Select a Year Range",
-              min = 2018,
-              max = 2022,
-              value = c(2018, 2022),
-              step = 1)
+              choices = unique(selected_df$YearStart), 
+              selected = "2019"),
 )
 
 viz_2_main_panel <- mainPanel(

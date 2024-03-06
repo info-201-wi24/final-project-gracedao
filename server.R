@@ -39,35 +39,53 @@ server <- function(input, output) {
 
 # server logic 
 #SHOULD NOT BE DEFINING SERVER TWICE?
-output$selected_date_output <- renderText({
-  paste("Date Range: ", input$selected_date[1], " to ", input$selected_date[2])
-})
+  output$selected_date_output <- renderText({
+    paste("Date Range: ", input$selected_date[1], " to ", input$selected_date[2])
+  })
 
 # Render the plot based on the selected date range
-output$obesity_plot <- renderPlot({
-  # Filter the data frame based on the selected year range
-  selected_df <- combined_df %>%
-    filter(Year %in% seq(input$selected_date[1], input$selected_date[2]))
-
-  # Compute the total obesity rate for the selected year range
-  total_obesity_rate <- sum(selected_df$Obesity_Prevelance)
-
-  # Compute the change in obesity rate from the previous year
-  previous_year_data <- combined_df %>%
-    filter(Year %in% (input$selected_date[1] - 1):(input$selected_date[2] - 1))
-  if (nrow(previous_year_data) == 0) {
-    percent_change <- NA
-  } else {
-    previous_year_obesity_rate <- sum(previous_year_data$Obesity_Prevelance)
-    percent_change <- ((total_obesity_rate - previous_year_obesity_rate) / previous_year_obesity_rate) * 100
-  }
-
-  # Plot the data
-  ggplot(selected_df, aes(x = State, y = Obesity_Prevelance, fill = as.factor(Year))) +
-    geom_bar(stat = "identity", position = "dodge") +
-    labs(title = "Obesity Rates per State from 2018 to 2022",
-         x = "State", y = "Obesity Rate") +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-    annotate("text", x = 1, y = 1, label = paste("Change from previous year:", ifelse(is.na(percent_change), "No data", percent_change)))
-})
+  output$obesity_plot <- renderPlot({
+    
+    # if (!is.null(input$selected_date) && input$selected_date != "") {
+    #   selected_df <- filter(combined_df, YearStart == input$selected_date)
+    # } else {
+    #   selected_df <- filter(combined_df, YearStart == 2019)
+    # }
+    
+    # # Filter the data frame based on the selected year range
+    selected_df <- combined_df %>%
+      filter(combined_df$YearStart == input$selected_date)
+    # selected_df <- subset(combined_df, combined_df$YearStart == input$selected_date[1] &
+    #            combined_df$YearStart == input$selected_date[2])
+  
+    # Compute the total obesity rate for the selected year range
+    total_obesity_rate <- mean(selected_df$Obesity_Prevelance)
+  
+    # Compute the change in obesity rate from the previous year
+    if (input$selected_date == 2018) {
+       # If selected year is 2018, set previous_year_data to NULL
+       previous_year_data <- filter(combined_df, YearStart == 2018)
+    } else {
+      # If selected year is greater than 2018, get data for the previous year
+      previous_year <- input$selected_date - 1
+      previous_year_data <- filter(combined_df, YearStart == previous_year)
+    }
+    
+    previous_year_obesity_rate <- mean(previous_year_data$Obesity_Prevelance)
+  
+    if (nrow(previous_year_data) == 0) {
+      percent_change <- 0
+    } else {
+      percent_change <- ((total_obesity_rate - previous_year_obesity_rate) / previous_year_obesity_rate) * 100
+    }
+  
+    # Plot the data
+    ggplot(selected_df, aes(x = State, y = Obesity_Prevelance, fill = as.factor(YearStart))) +
+      geom_bar(stat = "identity", position = "dodge") +
+      labs(title = "Comparison of Average Obesity Rate",
+           x = "Year", y = "Average Obesity Rate") +
+      theme_minimal()
+      # annotate("text", x = 1, y = 1, label = paste("Change from previous year:", ifelse(is.na(percent_change), "No data", percent_change)))
+      return((ggplotly(obesity_plot)))
+  })
 }
