@@ -76,8 +76,9 @@ viz_2_sidebar <- sidebarPanel(
 viz_2_main_panel <- mainPanel(
   h2("Relationship between Poverty and Obesity Rates"),
   h1("Date: "),
-  # textOutput("selected_date_output"),
-  plotOutput(outputId = "obesity_plot")
+  textOutput("selected_date_output"),
+  plotOutput(outputId = "obesity_plot"),
+  p("This visualization shows the change in the average in obesity rates for the selected year and the year before. Most comaprisons have little to no change, but the biggest change would be from 2018 with a rate of 31.56 to 2019 with 31.64. The average obesity rate remains the same of around 31.56 for 2020-2022. This shows that time does not have a factor in obesity rates.")
 
 )
 
@@ -124,7 +125,8 @@ conclusion_tab <- tabPanel("Takeaways",
                   p("West Virginia has the highest obesity rate (40.3% of their population classified as Obese) and 15.3% of their population lives below the poverty line"),
                   p("New Mexico has the highest poverty rate (18.3% of their population classified as under the poverty level) and 25.7% of their population is considered Obese"),
                   p("Mississipi has the highest level of people who perform little to no physical activity (31.2% of their population) and 34.8% of their population is considered obese (17.8% of their population lives below the poverty line"),
-                  p("The State that had the greatest change in obesity levels from 2020 to 2022 is..."),
+                  p("The greatest change in average obesity levels from 2018 to 2022 is between 2018 to 2019."),
+                  p("Otherwise, time does not have a large factor in the increase or decrease of obesity rates."),
                   
                   h3("Insights:"),
                   p("Insights from our research into the affect that Poverty has on Obesity is that.. "),
