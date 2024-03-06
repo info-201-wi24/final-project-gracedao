@@ -102,7 +102,8 @@ viz_3_sidebar <- sidebarPanel(
   radioButtons(inputId = "causal_pathway", 
                label = h4("Do you think that there is a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates?"),
                choices = list("Yes" = "yes",
-                              "No" = "no"),
+                              "No" = "no",
+                              "I don't know" = "I don't know"),
                selected = NULL),
 )
 
