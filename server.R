@@ -4,6 +4,8 @@ library(plotly)
 library(shiny)
 library(bslib)
 
+source("obesity_poverty_Datasets.R")
+
 
 #add newly created csv file here  Unified_dataset.csv
 combined_df <- read.csv("Unified_dataset.csv")
@@ -96,13 +98,16 @@ server <- function(input, output) {
 
   # Render the line graph for obesity and poverty
   output$causal_plot <- renderPlot({
+    print("starting to draw plot")
     # Assuming obesity_poverty_df is available in your environment
-    ggplot(obesity_poverty_df, aes(x = State)) +
-      geom_line(aes(y = Poverty_Rate, color = "Poverty Rate")) +
-      geom_line(aes(y = Obesity_Prevalence, color = "Obesity Prevalence")) +
+    my_plot <- ggplot(obesity_poverty_df, aes(x = State)) +
+      geom_line(aes(y = Poverty_Rate, color = Poverty_Rate)) +
+      geom_line(aes(y = Obesity_Prevelance, color = Obesity_Prevelance)) +
       labs(x = "State", y = "Rate (%)", color = "Variable") +
-      scale_color_manual(values = c("Poverty Rate" = "blue", "Obesity Prevalence" = "red")) +
+      scale_color_manual(values = c("Poverty Rate" = "blue", "Obesity Prevelance" = "red")) +
       theme_minimal() +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+    print("made plot")
+    return(my_plot)
   })
 }
