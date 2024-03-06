@@ -118,7 +118,7 @@ viz_3_main_panel <- mainPanel(
 viz_3_tab <- tabPanel("Causal Pathway Analysis",
                       sidebarLayout(
                         viz_3_sidebar,
-                        viz_3_main_panel
+                        plotlyOutput(outputId = "obesity_poverty_line_plot")
                       )
 )
 
