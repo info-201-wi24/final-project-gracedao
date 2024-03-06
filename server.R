@@ -10,7 +10,7 @@ combined_df <- read.csv("Unified_dataset.csv")
 
 
 server <- function(input, output) {
-  #user inputing State they're interested in seeing --> output
+  #Brooke Visualization One
   output$user_opinion <- renderText ({
     if(user_selection == 1) {
       "You think that obesity and poverty are correlated."
@@ -32,12 +32,12 @@ server <- function(input, output) {
                                            labs(title = "Correlation between Poverty and Obesity", x = "Obesity Prevelance %", y = "Poverty Rate (%)")+
                                            theme_minimal()
         
-        return(ggplotly(obesity_poverty_plot))
+    return(ggplotly(obesity_poverty_plot))
 })
   
 
 
-# server logic 
+# Grace visualization 2 
   output$selected_date_output <- renderText({
     paste("Date Range: ", as.numeric(input$selected_date[1]) - 1, " to ", input$selected_date[1])
   })
@@ -75,11 +75,11 @@ server <- function(input, output) {
     )
   
     # Plot the data
-    obesity_plot <- ggplot(plot_df, aes(x = factor(Year), y = Average_Obesity_Rate, fill = factor(Year))) +
+    obesity_year_plot <- ggplot(plot_df, aes(x = factor(Year), y = Average_Obesity_Rate, fill = factor(Year))) +
       geom_bar(stat = "identity", position = "dodge") +
       labs(title = "Comparison of Average Obesity Rate",
            x = "Year", y = "Average Obesity Rate") +
       theme_minimal()
-      return((ggplotly(obesity_plot)))
+      return((ggplotly(obesity_year_plot)))
   })
 }

@@ -31,7 +31,7 @@ overview_tab <- tabPanel("Introduction",
 #Brooke
 
  viz_1_sidebar <- sidebarPanel(
-   h2("User opinion"),
+   h2("User Opinion"),
    
    #what state they think has the highest correlation
    radioButtons(inputId = "user_opinion", 
@@ -48,11 +48,16 @@ overview_tab <- tabPanel("Introduction",
                choices = selected_df$State, 
                selected = "Alabama", #automatic choice
                multiple = TRUE),
+   tags$img(src = "https://landgeistdotcom.files.wordpress.com/2021/04/usa-obesity.png", height = 150, width = 250)
+   
 
  )
  viz_1_main_panel <- mainPanel(
    h2("Correlation between Poverty and Obesity"),
    plotlyOutput(outputId = "obesity_poverty_plot"),
+   
+   h2("Data Analysis:"),
+   p("This graph shows the correlation between Obesity rates and Poverty rates per state. Besides a few outliers, it's easy to identify the skew in the data. One can clearly observe that States that have higher poverty rates, tend to have much higher Obesity rates compared to States that have much lower poverty rates. Take Utah and West Virgina: Utah has an extremely low poverty rate AND an extremely low obesity rate. However, if you observe the State where over 15.5% of their population lives below the poverty line, West Virginia, you also observe that over 40% of their population is considered obese. It's also important to recognize the outliers such as Nebraska, Wisconsin,Minnesota, that have very high rates of obesity but relatively low rates of poverty. It's important to question if there are other factors that contribute to obesity rather than just poverty. For example, we could analyze these states against number of fast food restaurant within a 10 mile radius. Or perhaps we could analyze weather patterns in these States to compare cold weather to Obesity rates. Regardless of the outliers and multitude of possible explanations for Obesity rates in the USA, this data shows a high correlation between poverty rates and obesity percentages."),
  )
  
  viz_1_tab <- tabPanel("Obesity and Poverty Per State",
@@ -77,7 +82,8 @@ viz_2_main_panel <- mainPanel(
   h2("Relationship between Poverty and Obesity Rates"),
   h1("Date: "),
   textOutput("selected_date_output"),
-  plotOutput(outputId = "obesity_plot"),
+  plotOutput(outputId = "obesity_year_plot"),
+  h2("Data Analysis:"),
   p("This visualization shows the change in the average in obesity rates for the selected year and the year before. Most comaprisons have little to no change, but the biggest change would be from 2018 with a rate of 31.56 to 2019 with 31.64. The average obesity rate remains the same of around 31.56 for 2020-2022. This shows that time does not have a factor in obesity rates.")
 
 )
@@ -111,17 +117,19 @@ viz_2_tab <- tabPanel("Over the Years",
 
 ## CONCLUSIONS TAB INFO
 conclusion_tab <- tabPanel("Takeaways",
-                  h2("Key Findings"),
+                  h1("Key Findings", align = "center"),
                   h3("We initially sought to answer the following questions:"),
                   p("What is the correlation between poverty and obesity in the United States?"),
                   p("What kind of impact did the pandemic have on the relationship between obesity and poverty?"),
                   p("Are there casual pathways and barreirs to physical activity that link poverty to reduced physical activity?"),
                   
                   h3("Our critical research questions aimed to identify:"),
-                  p("some text"),
+                  p("A correlation between poverty and obesity in the United States"),
+                  p("How the COVID-19 pandemic affected low-income communities and what affect that had on Obesity rates in those areas"),
+                  p("How the lack of access to fitness facilities impacts obesity rates"),
                   
                   
-                  h2("Specific Takeaways:"),
+                  h3("Specific Takeaways:"),
                   p("West Virginia has the highest obesity rate (40.3% of their population classified as Obese) and 15.3% of their population lives below the poverty line"),
                   p("New Mexico has the highest poverty rate (18.3% of their population classified as under the poverty level) and 25.7% of their population is considered Obese"),
                   p("Mississipi has the highest level of people who perform little to no physical activity (31.2% of their population) and 34.8% of their population is considered obese (17.8% of their population lives below the poverty line"),
@@ -129,10 +137,10 @@ conclusion_tab <- tabPanel("Takeaways",
                   p("Otherwise, time does not have a large factor in the increase or decrease of obesity rates."),
                   
                   h3("Insights:"),
-                  p("Insights from our research into the affect that Poverty has on Obesity is that.. "),
+                  p("Insights from our research into the affect that Poverty has on Obesity is that besides a few outliers, it is very clear that high obestiy rates can be closely linked to high poverty rates in the United States. The interplay between obesity and poverty is rooted in various factors, including access to healthy foods, education levels, physical activity levels, and living environments. Lower-income communities often face greater challenges in accessing nutritious food options, contributing to higher rates of obesity. Moreover, our data analysis showed that these lower income communities often have limited access to safe spaces for physical activity, further compounding the issue of obesity in low income areas. We also wanted to analyze how the COVID-19 pandemic impacted the correlation between obesity and poverty. Lockdowns and social distancign measures led to reduced physical activity and decrease in overall net income per family. Economic hardships intensified by the pandemic, especially in already low income communities, have made it much harder for people living in poverty to afford healthy food options or access fitness facilities. State-by-State analysis also revealed that low physical activity rates are closely linked with higher obesity and poverty rates. States with lower socioeconomic status often report less access to recreational facilities, increasing the number of people per state who perform zero leisure physical activity. This relationship underscores the importance of public health strategies and policies that aim to increase physical activity levels across all socioeconomic levels."),
                   
-                  h2("Conclusion"),
-                  p("In conclusion, while this data provides valuable insights ..., it is important to note that it is not entirely comprehensive and may not accurately reflect the full extent of the causations of obesity in the United States. However, even with the data present here, it is easy to draw the conclusion that there is a very serious epidemic in the United States in regards to health, obesity, and poverty."),
+                  h3("Conclusion"),
+                  p("In conclusion, while this data provides valuable insights ..., it is important to note that it is not entirely comprehensive and may not accurately reflect the full extent of the causations of obesity in the United States. However, even with the data present here, it is easy to draw the conclusion that there is a very serious epidemic in the United States in regards to health, obesity, and poverty. The years of 2018-2022 have shed light on the intricate relationship between obesity and poverty, with the COVID-19 pandemic playing a significant role in exacerbating these issues. Although we have highlighted a correlation between poverty, obesity, and lack of physical activity, it's important to address that obesity is a highly complex issue that is multifaceted by American culture, diet fads, mental health, healthcare access, and much more. Public health interventions must be tailored to address the specific needs of dispared communities that aren't given equitable access to resources that promote healthy lifestyles and combat the cycle of obesity and poverty."),
 )
 
  my_theme <- bs_theme(bg = "#2f716c",
