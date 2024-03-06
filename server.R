@@ -86,7 +86,7 @@ server <- function(input, output) {
 
 #Everlyn Visualization 3
 # Causal pathway
-# output$response_text <- renderText({
+# output$causal_pathway <- renderText({
 #   if (input$causal_pathway == "yes") {
 #     "You are correct!"
 #   } else if (input$causal_pathway == "no") {
@@ -95,10 +95,10 @@ server <- function(input, output) {
 #     "Please select an option."
 #   }
 # })
-# 
-# # Render the line graph for obesity and poverty
+# #
+# # # Render the line graph for obesity and poverty
 # output$obesity_poverty_line_plot <- renderPlot({
-#   # Assuming obesity_poverty_df is available in your environment
+# #   # using obesity_poverty_df
 #   ggplot(obesity_poverty_df, aes(x = State)) +
 #     geom_line(aes(y = Poverty_Rate, color = "Poverty Rate")) +
 #     geom_line(aes(y = Obesity_Prevalence, color = "Obesity Prevalence")) +
@@ -107,4 +107,3 @@ server <- function(input, output) {
 #     theme_minimal() +
 #     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 # })
-

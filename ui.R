@@ -13,6 +13,7 @@ selected_df <- combined_df %>%
   filter(State %in% state_name)
 
 overview_tab <- tabPanel("Introduction",
+                         p("Grace Dao, Brooke Dietmeier, Everlyn Zhou", align = "center"),
                          h1("Exploring the Dynamics of Poverty and Obesity in the United States", align = "center"),
                          h3("Project Overview"),
                          p("This project investigates the relationship between poverty/wealth and obesity in the United States. Through analysis of combined data from the Nutrition, Physical Activity, and Obesity Behavioral Risk Factor Surveillance System provided by the U.S. Department of Health & Human Services and National Obesity by State published by the CDC, we aim to shed light on several critical questions surrounding this topic."),
@@ -99,7 +100,7 @@ viz_2_tab <- tabPanel("Over the Years",
 #Everlyn 
 viz_3_sidebar <- sidebarPanel(
   radioButtons(inputId = "causal_pathway", 
-               label = h4("Is there a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates?"),
+               label = h4("Do you think that there is a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates?"),
                choices = list("Yes" = "yes",
                               "No" = "no"),
                selected = NULL),
@@ -107,7 +108,7 @@ viz_3_sidebar <- sidebarPanel(
 
 viz_3_main_panel <- mainPanel(
   h2("Physical Activity and Obesity"),
-  plotlyOutput(outputId = "your_viz_1_output_id"),
+  plotlyOutput(outputId = "causal_output_id"),
   h2("From the CDC:"),
   HTML("<p>\"Only half of adults get the physical activity they need to help reduce and prevent chronic diseases, and more than 100 million have obesity.</p>
        <p>During 1999–March 2020, obesity prevalence increased from 31% to 42% for adults and from 14% to 20% for children and adolescents.\"</p>
