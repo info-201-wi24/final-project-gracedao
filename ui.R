@@ -127,7 +127,9 @@ viz_3_main_panel <- mainPanel(
 viz_3_tab <- tabPanel("Causal Pathway Analysis",
                       sidebarLayout(
                         viz_3_sidebar,
+                        mainPanel(
                         plotlyOutput(outputId = "physical_activity_plot")
+                        )
                       )
 )
 

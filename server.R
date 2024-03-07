@@ -109,30 +109,14 @@ server <- function(input, output) {
     filtered_data_subset <- filtered_data() %>%
       filter(State == input$state_selection)
     
-    plot_data <- list()
+    p <- ggplot(filtered_data_subset(), aes(x = YearStart, y = Data_Value, color = State)) +
+      geom_line() +
+      labs(title = "Percentage of Adults Engaging in No Leisure-Time Physical Activity",
+           x = "Year",
+           y = "Percentage") +
+      theme_minimal()
     
-    for (state in unique(filtered_data()$State)) {
-      state_data <- filtered_data_subset %>%
-        filter(State == state)
-      
-      plot_data[[state]] <- list(
-        x = state_data$YearStart,
-        y = state_data$Data_Value,
-        name = state
-      )
-    }
-    
-    p <- plot_ly() %>%
-      layout(title = "Percentage of Adults Engaging in No Leisure-Time Physical Activity",
-             xaxis = list(title = "Year"),
-             yaxis = list(title = "Percentage"),
-             hovermode = "closest") %>%
-      add_lines(data = plot_data[[input$state_selection]], 
-                x = ~x, y = ~y, 
-                name = input$state_selection,
-                line = list(color = "blue")) %>%
-      layout(legend = list(orientation = "h", x = 0.5, y = -0.2))
-    
-    p
+    ggplotly(p)
+
   })
 }
