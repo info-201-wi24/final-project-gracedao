@@ -100,29 +100,4 @@ server <- function(input, output) {
     return(ggplotly(year_activity_plot))
 })
 }
-  # states
-  #states_list <- reactive({
-   # unique(selected_df$State)
- # })
-  
-  # dropdown menus
-  #output$state_dropdown <- renderUI({
-  #  selectInput("state_selection", "Select State:",
-   #             choices = states_list())
- # })
-  
-  # plotly interactive graph
-  #output$physical_activity_plot <- renderPlotly({
-   # req(input$state_selection)
-    
-    #filtered_data_subset <- filtered_data() %>%
-    #  filter(State == input$state_selection)
-    
-     # p <- ggplot(filtered_data_subset(), aes(x = YearStart, y = Data_Value, color = State)) +
-    #  geom_line() +
-    #  labs(title = "Percentage of Adults Engaging in No Leisure-Time Physical Activity",
-    #       x = "Year",
-     #      y = "Percentage") +
-     # theme_minimal()
-    
-   # ggplotly(p)
+
