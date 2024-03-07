@@ -115,7 +115,7 @@ viz_3_sidebar <- sidebarPanel(
 
 viz_3_main_panel <- mainPanel(
   h2("Physical Activity and Obesity"),
-  plotOutput(outputId = "causal_plot"),
+  #plotlyOutput(outputId = "obesity_poverty_line_plot"),
   h2("From the CDC:"),
   p("<\"Only half of adults get the physical activity they need to help reduce and prevent chronic diseases, and more than 100 million have obesity.
        During 1999–March 2020, obesity prevalence increased from 31% to 42% for adults and from 14% to 20% for children and adolescents.\"
@@ -127,7 +127,7 @@ viz_3_main_panel <- mainPanel(
 viz_3_tab <- tabPanel("Causal Pathway Analysis",
                       sidebarLayout(
                         viz_3_sidebar,
-                        plotlyOutput(outputId = "obesity_poverty_line_plot")
+                        plotlyOutput(outputId = "physical_activity_plot")
                       )
 )
 

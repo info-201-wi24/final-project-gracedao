@@ -87,7 +87,7 @@ server <- function(input, output) {
 #Everlyn Visualization 3
   filtered_data <- reactive({
     nutrition_df %>%
-      filter(Year_Start %in% input$years_selection,
+      filter(YearStart %in% input$years_selection,
              Question == "Percent of adults who engage in no leisure-time physical activity")
   })
   
