@@ -84,8 +84,11 @@ viz_2_main_panel <- mainPanel(
   textOutput("selected_date_output"),
   plotOutput(outputId = "obesity_year_plot"),
   h2("Data Analysis:"),
-  p("This visualization shows the change in the average in obesity rates for the selected year and the year before. Most comaprisons have little to no change, but the biggest change would be from 2018 with a rate of 31.56% to 2019 with 31.64%. The average obesity rate remains the same of around 31.56% for 2020-2022. This shows that time does not have a factor in obesity rates.")
-  
+  p("This visualization shows the change in the average in obesity rates for the selected year and the year before. Most comaprisons have little to no change, but the biggest change would be from 2018 with a rate of 31.56% to 2019 with 31.64%. 
+    The average obesity rate remains the same of around 31.56% for 2020-2022. This shows that time does not have a factor in obesity rates. A lack of barely any change in obesity rates in the United States over time, shows how this problem is persisent and not improving significantly. 
+    This stagnation suggests that despite various public health iniatives and even the COVID-19 pandemic health crisis, the pandemic of Obesity in the United States rages on. This stagnation also goes to show just how embedded obesity is into the culture and society of the United States. 
+    Based on the conclusion of our data, this could be caused due to lower-income populations having higher obesity rates and much lower rates of physical activity levels. This evidence inidicates that obesity is resistant to the passage of time and persistent through sever global health
+    crises, which have highlighted the increased vulnerability and mortatlity risk of individuals with Obesity.")
 )
 
 viz_2_tab <- tabPanel("Over the Years",
