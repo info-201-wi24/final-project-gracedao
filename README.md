@@ -4,7 +4,7 @@
 Authors: Brooke Dietmeier, Everlyn Zhou, Grace Dao  
 
 Shiny App: 
-Link: https://brookedietmeier-info201-final-project.shinyapps.io/final-project-gracedao/
+https://brookedietmeier-info201-final-project.shinyapps.io/final-project-gracedao/
 
 
 # Introduction
