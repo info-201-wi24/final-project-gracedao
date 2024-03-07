@@ -114,6 +114,41 @@ viz_2_tab <- tabPanel("Over the Years",
 #   )
 # )
 
+viz_3_sidebar <- sidebarPanel(
+  radioButtons(inputId = "causal_pathway", 
+               label = h4("Do you think that there is a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates?"),
+               choices = list(
+                 "Yes" = "yes",
+                 "No" = "no",
+                 "I don't know" = "I don't know"),
+               selected = NULL),
+  # Dropdown for selecting years
+  selectInput("years_selection", "Select Years:",
+              choices = unique(nutrition_df$YearStart),
+              multiple = TRUE)
+)
+
+viz_3_main_panel <- mainPanel(
+  h2("Physical Activity and Obesity"),
+  #plotlyOutput(outputId = "obesity_poverty_line_plot"),
+  h2("From the CDC:"),
+  p("<\"Only half of adults get the physical activity they need to help reduce and prevent chronic diseases, and more than 100 million have obesity.
+       During 1999–March 2020, obesity prevalence increased from 31% to 42% for adults and from 14% to 20% for children and adolescents.\"
+       For more information, visit the <a href='https://www.cdc.gov/chronicdisease/resources/publications/aag/dnpao.htm'>CDC</a> website."),
+  h2("Data Analysis:"),
+  p("This data shows that... ")  
+  )
+
+viz_3_tab <- tabPanel("Causal Pathway Analysis",
+                      sidebarLayout(
+                        viz_3_sidebar,
+                        mainPanel(
+                        plotlyOutput(outputId = "physical_activity_plot")
+                        )
+                      )
+)
+
+
 
 ## CONCLUSIONS TAB INFO
 conclusion_tab <- tabPanel("Takeaways",
