@@ -4,6 +4,8 @@ library(plotly)
 library(shiny)
 library(bslib)
 
+source("obesity_poverty_Datasets.R")
+
 
 #add newly created csv file here  Unified_dataset.csv
 combined_df <- read.csv("Unified_dataset.csv")
@@ -76,28 +78,47 @@ server <- function(input, output) {
       theme_minimal()
       return((ggplotly(obesity_year_plot)))
   })
-}
+
 
 #Everlyn Visualization 3
-# Causal pathway
-# output$causal_pathway <- renderText({
-#   if (input$causal_pathway == "yes") {
-#     "You are correct!"
-#   } else if (input$causal_pathway == "no") {
-#     "You are incorrect!"
-#   } else {
-#     "Please select an option."
-#   }
-# })
-# #
-# # # Render the line graph for obesity and poverty
-# output$obesity_poverty_line_plot <- renderPlot({
-# #   # using obesity_poverty_df
-#   ggplot(obesity_poverty_df, aes(x = State)) +
-#     geom_line(aes(y = Poverty_Rate, color = "Poverty Rate")) +
-#     geom_line(aes(y = Obesity_Prevalence, color = "Obesity Prevalence")) +
-#     labs(x = "State", y = "Rate (%)", color = "Variable") +
-#     scale_color_manual(values = c("Poverty Rate" = "blue", "Obesity Prevalence" = "red")) +
-#     theme_minimal() +
-#     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-# })
+  output$year_activity_plot <- renderPlotly({
+    
+    selected_df <- combined_df %>% 
+      filter(YearStart %in% input$years_selection)
+    
+    year_activity_plot <- ggplot(selected_df) +
+      geom_point(aes(x = Obesity_Prevelance,
+                     y = Average_No_Physical_Activity,
+                     color = State)) +
+      labs(title = "Correlation between No Physical activity and Obesity", x = "Obesity Prevelance %", y = "% no physical activity")+
+      theme_minimal()
+    
+    return(ggplotly(year_activity_plot))
+})
+}
+  # states
+  #states_list <- reactive({
+   # unique(selected_df$State)
+ # })
+  
+  # dropdown menus
+  #output$state_dropdown <- renderUI({
+  #  selectInput("state_selection", "Select State:",
+   #             choices = states_list())
+ # })
+  
+  # plotly interactive graph
+  #output$physical_activity_plot <- renderPlotly({
+   # req(input$state_selection)
+    
+    #filtered_data_subset <- filtered_data() %>%
+    #  filter(State == input$state_selection)
+    
+     # p <- ggplot(filtered_data_subset(), aes(x = YearStart, y = Data_Value, color = State)) +
+    #  geom_line() +
+    #  labs(title = "Percentage of Adults Engaging in No Leisure-Time Physical Activity",
+    #       x = "Year",
+     #      y = "Percentage") +
+     # theme_minimal()
+    
+   # ggplotly(p)
