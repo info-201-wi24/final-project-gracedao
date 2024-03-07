@@ -85,38 +85,44 @@ server <- function(input, output) {
 
 
 #Everlyn Visualization 3
-  filtered_data <- reactive({
-    nutrition_df %>%
-      filter(YearStart %in% input$years_selection,
-             Question == "Percent of adults who engage in no leisure-time physical activity")
-  })
-  
-  # states
-  states_list <- reactive({
-    unique(filtered_data()$State)
-  })
-  
-  # dropdown menus
-  output$state_dropdown <- renderUI({
-    selectInput("state_selection", "Select State:",
-                choices = states_list())
-  })
-  
-  # plotly interactive graph
-  output$physical_activity_plot <- renderPlotly({
-    req(input$state_selection)
+  output$year_activity_plot <- renderPlotly({
     
-    filtered_data_subset <- filtered_data() %>%
-      filter(State == input$state_selection)
+    selected_df <- combined_df %>% 
+      filter(YearStart %in% input$years_selection)
     
-    p <- ggplot(filtered_data_subset(), aes(x = YearStart, y = Data_Value, color = State)) +
-      geom_line() +
-      labs(title = "Percentage of Adults Engaging in No Leisure-Time Physical Activity",
-           x = "Year",
-           y = "Percentage") +
+    year_activity_plot <- ggplot(selected_df) +
+      geom_point(aes(x = Obesity_Prevelance,
+                     y = Average_No_Physical_Activity,
+                     color = State)) +
+      labs(title = "Correlation between No Physical activity and Obesity", x = "Obesity Prevelance %", y = "% no physical activity")+
       theme_minimal()
     
-    ggplotly(p)
-
-  })
+    return(ggplotly(year_activity_plot))
+})
 }
+  # states
+  #states_list <- reactive({
+   # unique(selected_df$State)
+ # })
+  
+  # dropdown menus
+  #output$state_dropdown <- renderUI({
+  #  selectInput("state_selection", "Select State:",
+   #             choices = states_list())
+ # })
+  
+  # plotly interactive graph
+  #output$physical_activity_plot <- renderPlotly({
+   # req(input$state_selection)
+    
+    #filtered_data_subset <- filtered_data() %>%
+    #  filter(State == input$state_selection)
+    
+     # p <- ggplot(filtered_data_subset(), aes(x = YearStart, y = Data_Value, color = State)) +
+    #  geom_line() +
+    #  labs(title = "Percentage of Adults Engaging in No Leisure-Time Physical Activity",
+    #       x = "Year",
+     #      y = "Percentage") +
+     # theme_minimal()
+    
+   # ggplotly(p)

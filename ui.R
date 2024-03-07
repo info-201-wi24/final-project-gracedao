@@ -97,55 +97,37 @@ viz_2_tab <- tabPanel("Over the Years",
 
 ## VIZ 3 TAB INFO
 #Everlyn 
-# viz_3_sidebar <- sidebarPanel(
-#   h2("Options for graph"),
-#   #TODO: Put inputs for modifying graph here
-# )
-# 
-# viz_3_main_panel <- mainPanel(
-#   h2("Vizualization 3 Title"),
-#   # plotlyOutput(outputId = "your_viz_1_output_id")
-# )
-# 
-# viz_3_tab <- tabPanel("Viz 3 tab title",
-#   sidebarLayout(
-#     viz_3_sidebar,
-#     viz_3_main_panel
-#   )
-# )
-
 viz_3_sidebar <- sidebarPanel(
-  radioButtons(inputId = "causal_pathway", 
-               label = h4("Do you think that there is a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates?"),
-               choices = list(
-                 "Yes" = "yes",
-                 "No" = "no",
-                 "I don't know" = "I don't know"),
-               selected = NULL),
+  sliderInput(inputId = "state_activity",
+              h4("Which year do you think had the highest rate of 'No physical activity'"), 
+              min = 2018, 
+              max = 2022,
+              value = 2019),
   # Dropdown for selecting years
-  selectInput("years_selection", "Select Years:",
-              choices = unique(nutrition_df$YearStart),
-              multiple = TRUE)
+  selectInput("years_selection", "Select the Years you're interested in to see data:",
+              choices = unique(combined_df$YearStart),
+              multiple = TRUE),
+  helpText("According to the CDC, Physical activity has many health benefits, including reducing anxiety, improving sleep, and lowering blood pressure, as well as lowering the risk of type 2 diabetes, heart disease, and some cancers (1). Physical activity also helps prevent severe outcomes from COVID-19 (2).
+           Early in the pandemic, uneven access to safe places for physical activity and shifting work–life demands may have exacerbated existing disparities in physical activity levels. These changes affected some people’s ability to be active more than others (3). For example, people who could access safe, walkable neighborhoods or who worked at home may have increased their physical activity. Understanding prevalence patterns of people who are physically inactive (or who participate in no leisure-time physical activity) before and during the pandemic can provide insight into who initiates any physical activity during large public health emergencies."),
+           
 )
 
 viz_3_main_panel <- mainPanel(
   h2("Physical Activity and Obesity"),
-  #plotlyOutput(outputId = "obesity_poverty_line_plot"),
+  plotlyOutput(outputId = "year_activity_plot"),
   h2("From the CDC:"),
-  p("<\"Only half of adults get the physical activity they need to help reduce and prevent chronic diseases, and more than 100 million have obesity.
+  p("Only half of adults get the physical activity they need to help reduce and prevent chronic diseases, and more than 100 million have obesity.
        During 1999–March 2020, obesity prevalence increased from 31% to 42% for adults and from 14% to 20% for children and adolescents.\"
        For more information, visit the <a href='https://www.cdc.gov/chronicdisease/resources/publications/aag/dnpao.htm'>CDC</a> website."),
   h2("Data Analysis:"),
-  p("This data shows that... ")  
+  p("This data shows that... "),  
   )
 
 viz_3_tab <- tabPanel("Causal Pathway Analysis",
                       sidebarLayout(
                         viz_3_sidebar,
-                        mainPanel(
-                        plotlyOutput(outputId = "physical_activity_plot")
+                        viz_3_main_panel,
                         )
-                      )
 )
 
 
@@ -190,6 +172,6 @@ ui <- navbarPage(
    overview_tab,
    viz_1_tab,
    viz_2_tab,
-  # viz_3_tab,
+   viz_3_tab,
    conclusion_tab
 )
