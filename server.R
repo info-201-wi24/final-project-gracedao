@@ -48,10 +48,6 @@ server <- function(input, output) {
     selected_date_output <- input$selected_date[1]
     
     selected_df <- filter(combined_df, combined_df$YearStart == input$selected_date)
-    
-    if (nrow(selected_df) == 0) {
-      return(NULL)  # Return NULL if no data is found
-    }
   
     # Compute the total obesity rate for the selected year range
     avg_obesity_rate <- mean(selected_df$Obesity_Prevelance, na.rm = TRUE)
