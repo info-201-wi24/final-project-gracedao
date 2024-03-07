@@ -85,29 +85,54 @@ server <- function(input, output) {
 
 
 #Everlyn Visualization 3
-  # Causal pathway
-  output$causal_output_id <- renderText({
-    if (input$causal_pathway == "yes") {
-      "You are correct!"
-    } else if (input$causal_pathway == "no") {
-      "You are incorrect!"
-    } else {
-      "Please select an option."
-    }
+  filtered_data <- reactive({
+    nutrition_df %>%
+      filter(Year_Start %in% input$years_selection,
+             Question == "Percent of adults who engage in no leisure-time physical activity")
   })
-
-  # Render the line graph for obesity and poverty
-  output$causal_plot <- renderPlot({
-    print("starting to draw plot")
-    # Assuming obesity_poverty_df is available in your environment
-    my_plot <- ggplot(obesity_poverty_df, aes(x = State)) +
-      geom_line(aes(y = Poverty_Rate, color = Poverty_Rate)) +
-      geom_line(aes(y = Obesity_Prevelance, color = Obesity_Prevelance)) +
-      labs(x = "State", y = "Rate (%)", color = "Variable") +
-      scale_color_manual(values = c("Poverty Rate" = "blue", "Obesity Prevelance" = "red")) +
-      theme_minimal() +
-      theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-    print("made plot")
-    return(my_plot)
+  
+  # states
+  states_list <- reactive({
+    unique(filtered_data()$State)
+  })
+  
+  # dropdown menus
+  output$state_dropdown <- renderUI({
+    selectInput("state_selection", "Select State:",
+                choices = states_list())
+  })
+  
+  # plotly interactive graph
+  output$physical_activity_plot <- renderPlotly({
+    req(input$state_selection)
+    
+    filtered_data_subset <- filtered_data() %>%
+      filter(State == input$state_selection)
+    
+    plot_data <- list()
+    
+    for (state in unique(filtered_data()$State)) {
+      state_data <- filtered_data_subset %>%
+        filter(State == state)
+      
+      plot_data[[state]] <- list(
+        x = state_data$YearStart,
+        y = state_data$Data_Value,
+        name = state
+      )
+    }
+    
+    p <- plot_ly() %>%
+      layout(title = "Percentage of Adults Engaging in No Leisure-Time Physical Activity",
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Percentage"),
+             hovermode = "closest") %>%
+      add_lines(data = plot_data[[input$state_selection]], 
+                x = ~x, y = ~y, 
+                name = input$state_selection,
+                line = list(color = "blue")) %>%
+      layout(legend = list(orientation = "h", x = 0.5, y = -0.2))
+    
+    p
   })
 }

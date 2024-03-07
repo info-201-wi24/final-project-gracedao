@@ -102,10 +102,15 @@ viz_2_tab <- tabPanel("Over the Years",
 viz_3_sidebar <- sidebarPanel(
   radioButtons(inputId = "causal_pathway", 
                label = h4("Do you think that there is a causal pathway linking poverty to reduced leisure physical activity and increased obesity rates?"),
-               choices = list("Yes" = "yes",
-                              "No" = "no",
-                              "I don't know" = "I don't know"),
+               choices = list(
+                 "Yes" = "yes",
+                 "No" = "no",
+                 "I don't know" = "I don't know"),
                selected = NULL),
+  # Dropdown for selecting years
+  selectInput("years_selection", "Select Years:",
+              choices = unique(nutrition_df$YearStart),
+              multiple = TRUE)
 )
 
 viz_3_main_panel <- mainPanel(
