@@ -107,9 +107,6 @@ viz_3_sidebar <- sidebarPanel(
   selectInput("years_selection", "Select the Years you're interested in to see data:",
               choices = unique(combined_df$YearStart),
               multiple = TRUE),
-  helpText("According to the CDC, Physical activity has many health benefits, including reducing anxiety, improving sleep, and lowering blood pressure, as well as lowering the risk of type 2 diabetes, heart disease, and some cancers (1). Physical activity also helps prevent severe outcomes from COVID-19 (2).
-           Early in the pandemic, uneven access to safe places for physical activity and shifting work–life demands may have exacerbated existing disparities in physical activity levels. These changes affected some people’s ability to be active more than others (3). For example, people who could access safe, walkable neighborhoods or who worked at home may have increased their physical activity. Understanding prevalence patterns of people who are physically inactive (or who participate in no leisure-time physical activity) before and during the pandemic can provide insight into who initiates any physical activity during large public health emergencies."),
-           
 )
 
 viz_3_main_panel <- mainPanel(
@@ -118,9 +115,10 @@ viz_3_main_panel <- mainPanel(
   h2("From the CDC:"),
   p("Only half of adults get the physical activity they need to help reduce and prevent chronic diseases, and more than 100 million have obesity.
        During 1999–March 2020, obesity prevalence increased from 31% to 42% for adults and from 14% to 20% for children and adolescents.\"
-       For more information, visit the <a href='https://www.cdc.gov/chronicdisease/resources/publications/aag/dnpao.htm'>CDC</a> website."),
+       For more information, visit the CDC website."),
   h2("Data Analysis:"),
-  p("This data shows that... "),  
+  p("According to the CDC, physical activity is linked to a myriad of health benefits, including but not limited to reducing anxiety, improving sleep, and lowering blood pressure; further, it is shown to reduce the risk of type 2 diabetes, heart disease, and other cancers (1). Physical activity also helps prevent severe outcomes from COVID-19 (2).
+    Early in the pandemic, uneven access to safe places for physical activity and shifting work–life demands may have exacerbated existing disparities in physical activity levels. These changes affected some people’s ability to be active more than others (3). For example, people who could access safe, walkable neighborhoods or who worked at home may have increased their physical activity. Understanding prevalence patterns of people who are physically inactive (or who participate in no leisure-time physical activity) before and during the pandemic can provide insight into who initiates any physical activity during large public health emergencies."),
   )
 
 viz_3_tab <- tabPanel("Causal Pathway Analysis",
