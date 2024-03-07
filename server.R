@@ -50,10 +50,6 @@ server <- function(input, output) {
     selected_date_output <- input$selected_date[1]
     
     selected_df <- filter(combined_df, combined_df$YearStart == input$selected_date)
-    
-    if (nrow(selected_df) == 0) {
-      return(NULL)  # Return NULL if no data is found
-    }
   
     # Compute the total obesity rate for the selected year range
     avg_obesity_rate <- mean(selected_df$Obesity_Prevelance, na.rm = TRUE)
@@ -80,7 +76,7 @@ server <- function(input, output) {
       labs(title = "Comparison of Average Obesity Rate",
            x = "Year", y = "Average Obesity Rate (%)") +
       theme_minimal()
-      return((ggplotly(obesity_year_plot)))
+      return(obesity_year_plot)
   })
 
 
