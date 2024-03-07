@@ -4,13 +4,6 @@
 Authors: Brooke Dietmeier, Everlyn Zhou, Grace Dao  
 
 
-For the Final Project -- Data Wrangling, add the following to this code repository:
-
-* An R script file containing the code you used to create your unified dataset 
-* Your unified and cleaned CSV dataset file
-* Data Nutrition Label (pdf) 
-
-
 **Link: Link to your Shiny App here**
 
 
